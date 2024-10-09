@@ -1,0 +1,33 @@
+name: Release
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  release:
+    strategy:
+      matrix:
+        ubuntu: ["20.04", "22.04"]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build the Docker image and compile libheif
+      env:
+        UBUNTU_VERSION: '${{ matrix.ubuntu }}'
+        LIBHEIF_VERSION: '${{ github.event.release.name }}'
+      run: |
+        docker build --build-arg UBUNTU_VERSION="${UBUNTU_VERSION}" --build-arg LIBHEIF_VERSION="${LIBHEIF_VERSION}" . --tag build
+        mkdir out
+        docker run -v ./out:/out build
+        cd out/dist
+        mv libheif*.deb "libheif-${LIBHEIF_VERSION}-ubuntu-${UBUNTU_VERSION}.deb"
+    - uses: actions/upload-artifact@v4
+      with:
+        name: 'ubuntu-${{ matrix.ubuntu }}'
+        path: out/dist/*.deb
+        
+    - uses: AButler/upload-release-assets@v3.0
+      with:
+        files: 'out/dist/*.deb'
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
