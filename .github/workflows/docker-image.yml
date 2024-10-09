@@ -1,0 +1,24 @@
+name: Build CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        ubuntu: ["20.04", "22.04"]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build the Docker image
+      env:
+        UBUNTU_VERSION: '${{ matrix.ubuntu }}'
+      run: |
+        docker build --build-arg UBUNTU_VERSION="${UBUNTU_VERSION}" . --tag build
+        mkdir out
+        docker run -v ./out:/out build
+      
