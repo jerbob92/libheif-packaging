@@ -10,7 +10,7 @@ Build args:
 - `WITH_RAV1E` = `0` (default) or `1`
 - `WITH_DAV1D` = `0` (default) or `1`
 
-## Usage
+## Building
 
 ```bash
 mkdir out
@@ -19,3 +19,16 @@ docker run -v ./out:/out -it $(docker build -q .)
 
 The resulting build (and deb file) will be in the `dist/out` folder.
 
+## Usage
+
+To use/install the deb file, you will need to do the following:
+
+```bash
+sudo apt update && sudo apt install software-properties-common
+sudo add-apt-repository ppa:strukturag/libde265
+sudo add-apt-repository ppa:strukturag/libheif
+sudo apt update && sudo apt install -y libde265-0 libde265-dev \
+  libaom-dev libaom3 \
+  libx265-179 libx265-dev \
+  zlib1g-dev libbrotli-dev \
+  libtiff-dev libpng-dev libjpeg-dev

@@ -21,12 +21,11 @@ jobs:
         mkdir out
         docker run -v ./out:/out build
         cd out/dist
-        mv libheif*.deb "libheif-${LIBHEIF_VERSION}-ubuntu-${UBUNTU_VERSION}.deb"
+        sudo mv libheif*.deb "libheif-${LIBHEIF_VERSION}-ubuntu-${UBUNTU_VERSION}.deb"
     - uses: actions/upload-artifact@v4
       with:
         name: 'ubuntu-${{ matrix.ubuntu }}'
         path: out/dist/*.deb
-        
     - uses: AButler/upload-release-assets@v3.0
       with:
         files: 'out/dist/*.deb'
