@@ -12,8 +12,7 @@ ARG LIBHEIF_VERSION="v1.18.2"
 RUN git clone --depth 1 -b $LIBHEIF_VERSION https://github.com/strukturag/libheif.git
 WORKDIR /libheif
 RUN echo "APT::Get::Assume-Yes \"true\";" > /etc/apt/apt.conf.d/90forceyes
-ARG WITH_GRAPHICS=0
-ENV WITH_GRAPHICS=$WITH_GRAPHICS
+ARG WITH_GRAPHICS=1
 ARG WITH_RAV1E=0
 ENV WITH_RAV1E=$WITH_RAV1E
 ARG WITH_DAV1D=0
