@@ -51,16 +51,16 @@ CMAKE_OPTIONS=" --preset=release"
 #CMAKE_OPTIONS="$CMAKE_OPTIONS -DCMAKE_INSTALL_PREFIX=/out/dist"
 
 # Disable plugins
-CMAKE_OPTIONS="$CMAKE_OPTIONS -DWITH_JPEG_DECODER_PLUGIN=OFF -DWITH_JPEG_ENCODER_PLUGIN=off"
+CMAKE_OPTIONS="$CMAKE_OPTIONS -DWITH_JPEG_DECODER_PLUGIN=OFF -DWITH_JPEG_ENCODER_PLUGIN=OFF -DWITH_LIBSHARPYUV=OFF -DWITH_KVAZAAR=OFF -DWITH_FFMPEG_DECODER=OFF -DWITH_OPENJPH_ENCODER=OFF -DWITH_OpenJPEG_DECODER=OFF -DWITH_OpenJPEG_ENCODER=OFF -DWITH_SvtEnc=OFF"
 
 # turn on warnings-as-errors
 CMAKE_OPTIONS="$CMAKE_OPTIONS -DCMAKE_COMPILE_WARNING_AS_ERROR=1"
 
-# Default for 20.04
-PACKAGE_DEPENDS="libde265-0 (>= 1.0.7), libx265-179 (>= 3.2), libaom3 (>= 3.3.0), libc6 (>= 2.14), libgcc-s1 (>= 3.0), libstdc++6 (>= 5.2), zlib1g (>= 1:1.1.4), libbrotli-dev, libjpeg8 (>= 8c)"
+# Default for 22.04 or higher
+PACKAGE_DEPENDS="libde265-0 (>= 1.0.7), libx265-199 (>= 3.5), libaom3 (>= 3.2.0), libc6 (>= 2.34), libgcc-s1 (>= 3.3.1), libstdc++6 (>= 11), zlib1g (>= 1:1.1.4), libbrotli-dev, libjpeg8 (>= 8c)"
 
-if [ "$UBUNTU_VERSION" = "22.04" ]; then
-    PACKAGE_DEPENDS="libde265-0 (>= 1.0.7), libx265-199 (>= 3.5), libaom3 (>= 3.2.0), libc6 (>= 2.34), libgcc-s1 (>= 3.3.1), libstdc++6 (>= 11), zlib1g (>= 1:1.1.4), libbrotli-dev, libjpeg8 (>= 8c)"
+if [ "$UBUNTU_VERSION" = "20.04" ]; then
+    PACKAGE_DEPENDS="libde265-0 (>= 1.0.7), libx265-179 (>= 3.2), libaom3 (>= 3.3.0), libc6 (>= 2.14), libgcc-s1 (>= 3.0), libstdc++6 (>= 5.2), zlib1g (>= 1:1.1.4), libbrotli-dev, libjpeg8 (>= 8c)"
 fi
 
 echo "Building libheif ..."
@@ -69,5 +69,5 @@ mkdir -p /out/dist
 cd /out/dist
 cmake /libheif $CMAKE_OPTIONS
 cmake --build .
-cpack -D CPACK_DEBIAN_PACKAGE_DEPENDS="${PACKAGE_DEPENDS}" -D CPACK_DEBIAN_PACKAGE_SECTION="libs" -D CPACK_PACKAGE_CONTACT="jeroen@klippa.com" -D CPACK_DEBIAN_PACKAGE_MAINTAINER="Jeroen Bobbeldijk <jeroen@klippa.com>" -G DEB
+cpack -D CPACK_DEBIAN_PACKAGE_DEPENDS="${PACKAGE_DEPENDS}" -D CPACK_DEBIAN_PACKAGE_SECTION="libs" -D CPACK_PACKAGE_CONTACT="jeroen@klippa.com" -D CPACK_DEBIAN_PACKAGE_MAINTAINER="Jeroen Bobbeldijk <jeroen@klippa.com>" -D CPACK_DEBIAN_PACKAGE_CONFLICTS="heif-gdk-pixbuf, heif-thumbnailer, libheif-examples, libheif-plugin-aomdec, libheif-plugin-aomenc, libheif-plugin-libde265, libheif1, libheif-dev, libheif-plugin-dav1d, libheif-plugin-ffmpegdec, libheif-plugin-j2kdec, libheif-plugin-j2kenc, libheif-plugin-jpegdec, libheif-plugin-jpegenc, libheif-plugin-rav1e, libheif-plugin-svtenc, libheif-plugin-x265" -G DEB
 #make -j $(nproc)

@@ -1,6 +1,6 @@
 # Libheif packaging for Ubuntu
 
-This repository is able to compile libheif for Ubuntu 20.04 and Ubuntu 22.04.
+This repository is able to compile libheif for Ubuntu 20.04, 22.04 and 24.04.
 
 Build args:
 

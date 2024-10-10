@@ -8,7 +8,7 @@ jobs:
   release:
     strategy:
       matrix:
-        ubuntu: ["20.04", "22.04"]
+        ubuntu: ["20.04", "22.04", "24.04"]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
