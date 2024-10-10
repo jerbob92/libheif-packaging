@@ -4,7 +4,7 @@ This repository is able to compile libheif for Ubuntu 20.04, 22.04 and 24.04.
 
 Build args:
 
-- `UBUNTU_VERSION` = `20.04` (default) or `22.04`
+- `UBUNTU_VERSION` = `20.04` (default), `22.04` or `24.04`
 - `LIBHEIF_VERSION` = any valid tag on libheif (default `v1.18.2`)
 - `WITH_RAV1E` = `0` (default) or `1`
 - `WITH_DAV1D` = `0` (default) or `1`
@@ -48,5 +48,5 @@ Included:
  - aom plugin (encoding and decoding)
  - libde265 plugin (decoding)
  - libx265 plugin (encoding)
- - rav1e plugin (decoding), only when enabled in build, not in pre-built release deb files
- - dav1d plugin (encoding), only when enabled in build, not in pre-built release deb files
+ - rav1e plugin (encoding), only when enabled in build, not in pre-built release deb files
+ - dav1d plugin (decoding), only when enabled in build, not in pre-built release deb files
