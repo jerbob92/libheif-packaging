@@ -21,6 +21,8 @@ jobs:
         docker build --build-arg UBUNTU_VERSION="${UBUNTU_VERSION}" . --tag build
         mkdir out
         docker run -v ./out:/out build
+        cd out/dist
+        sudo mv libheif*.deb "libheif-${LIBHEIF_VERSION}-ubuntu-${UBUNTU_VERSION}_amd64.deb"
     - uses: actions/upload-artifact@v4
       with:
         name: 'ubuntu-${{ matrix.ubuntu }}'
